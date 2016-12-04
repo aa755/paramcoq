@@ -373,19 +373,19 @@ let command_reference_recursive ?(continuation = default_continuation) arity gre
      let (ind, _) = Globnames.destConstructRef ref in
      Globnames.IndRef ind
   in
-  let rec fold_sort graph visited nexts f acc =
-    Refset_env.fold (fun ref ((visited, acc) as visacc) ->
+  let rec fold_sort (graph : Globnames.Refset.t Globnames.Refmap.t) visited (nexts : Globnames.Refset.t) f acc =
+    Refset.fold (fun ref ((visited, acc) as visacc) ->
           let ref_ind = inductive_of_constructor ref in
-          if Refset_env.mem ref_ind visited
+          if Refset.mem ref_ind visited
           || Relations.is_referenced arity ref_ind  then visacc else
-          let nexts = Refmap_env.find ref graph in
-          let visited = Refset_env.add ref_ind visited in
+          let nexts = Refmap.find ref graph in
+          let visited = Refset.add ref_ind visited in
           let visited, acc = fold_sort graph visited nexts f acc in
           let acc = f ref_ind acc in
           (visited, acc)
      ) nexts (visited, acc)
   in
-  let _, dep_refs = fold_sort graph Refset_env.empty direct (fun x l -> (inductive_of_constructor x)::l) [] in
+  let _, dep_refs = fold_sort graph Refset.empty direct (fun x l -> (inductive_of_constructor x)::l) [] in
   let dep_refs = List.rev dep_refs in
   (* DEBUG:
   List.iter (fun x -> let open Pp in msg_info (Printer.pr_global x)) dep_refs; *)
