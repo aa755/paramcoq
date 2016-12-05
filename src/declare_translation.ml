@@ -315,8 +315,9 @@ let translateFullName arity (constant : Names.constant) : string =
      @@ Names.modpath
      @@ Names.canonical_con
      @@ constant) in
+  let pstr = if (String.compare pstr "Top" == 0) then "" else pstr in
   let plstr = Str.split (Str.regexp ("\.")) pstr in
-  (String.concat "__o__" (plstr@[nstr]))
+  (String.concat "_o_" (plstr@[nstr]))
 
 
 let command_constant ?(continuation = default_continuation) arity constant names =
