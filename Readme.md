@@ -5,8 +5,10 @@ But is useable enough to "translate" a large chunck of standard library.
 Compilation 
 ===========
 
-The plugin currently works with Coq 8.5pl1.
+The plugin currently works with Coq 8.5pl1 (+1 patch from 8.6 ).
 The easy (and long) way to test the plugin is to follow the following steps:
+* Install the patched Coq 8.5
+https://github.com/aa755/coq/commits/v85origin
 
 * Retrieve the plugin and compile it:
 
