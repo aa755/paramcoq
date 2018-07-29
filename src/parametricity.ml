@@ -606,8 +606,7 @@ and translate_cofix order evd env t =
   in
 
   (* env_rec is the environement under fipoints. *)
-  let en l = Array.map (to_constr !evd) l in
-  let env_rec = push_rec_types (lna, en tl, en bl) env in
+  let env_rec = push_rec_types (lna, tl, bl) env in
   (* n : fix index *)
   let process_body n =
     let lams, body = decompose_lam_assum !evd bl.(n) in
@@ -709,8 +708,7 @@ and translate_fix order evd env t =
      compose_prod_assum (lift_rel_context (nfun * order) ft_R) (substl sub bk_R)) ftbk_R
   in
   (* env_rec is the environement under fipoints. *)
-  let en l = Array.map (to_constr !evd) l in
-  let env_rec = push_rec_types (lna, en tl, en bl) env in
+  let env_rec = push_rec_types (lna, tl, bl) env in
   (* n : fix index *)
   let process_body n =
     let lams, body = decompose_lam_assum !evd bl.(n) in
